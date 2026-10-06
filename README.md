@@ -30,7 +30,9 @@ runner's busy state to `/var/log/ci-load.tsv` (35 days kept). `host/ci-load-repo
 summary every Monday at 13:00 UTC, from alerts@ericdahl.dev through the `mail-bridge` container
 (ger3 blocks outbound SMTP). Its settings are in `/etc/ci-load-report.env` (root only:
 `MAIL_BRIDGE_SMTP_PASSWORD` from Doppler `ericdahl-dev/prd`, and `REPORT_TO`). Cron:
-`/etc/cron.d/ci-load-report`, log `/var/log/ci-load-report.log`.
+`/etc/cron.d/ci-load-report`, log `/var/log/ci-load-report.log`. With `GH_BILLING_PAT` in the env file
+(fine-grained, org Administration: read, Doppler `GH_BILLING_PAT`) the email also shows private-repo
+GitHub-hosted minutes for the month against the 3,000 included.
 
 ## Setup facts and workflow rules
 
