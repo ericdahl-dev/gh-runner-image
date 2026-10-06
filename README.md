@@ -15,3 +15,10 @@ Two things these runners can't do, because jobs run Docker through the host's so
 - `container:` jobs and `services:` with host ports. Start Postgres in the runner's own network
   instead (`--network container:$HOSTNAME`); see ericdahl-ops `.github/workflows/ci.yml`.
 - Isolation: a job has root on ger3. The runner group is limited to private repos for that reason.
+
+## Work folder cleanup
+
+Runners keep repo checkouts and gem/node caches in `/tmp/github-runner/ger3-N` between jobs.
+`host/clean-runner-workdirs.sh` empties them every Sunday at 04:00 UTC. It is installed on ger3 as
+`/usr/local/bin/clean-runner-workdirs` with `/etc/cron.d/clean-runner-workdirs`, and logs to
+`/var/log/clean-runner-workdirs.log`. Edit it here and copy it back to ger3; the host doesn't pull it.
