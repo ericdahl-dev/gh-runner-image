@@ -15,3 +15,8 @@ RUN apt-get update -qq \
       libvips42t64 libjpeg-turbo8 libpng16-16t64 libxrender1 libxext6 libfontconfig1 \
       shellcheck \
  && rm -rf /var/lib/apt/lists/*
+
+# Jobs run as root, and Chrome won't start as root without --no-sandbox. Rails 8.1's
+# `driven_by :cuprite` drops an app's own browser_options, so have Ferrum add the
+# flag itself for every Cuprite/Ferrum suite.
+ENV FERRUM_CHROME_DOCKERIZE=true
